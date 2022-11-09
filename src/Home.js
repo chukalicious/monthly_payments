@@ -1,8 +1,69 @@
+import { useState, useEffect } from "react";
 import { FcMoneyTransfer } from "react-icons/fc";
 import Form from "./Form";
 import Results from "./Results";
 
 const Home = () => {
+  const [submittedForm, setSubmittedForm] = useState({
+    homeValue: "",
+    downPayment: "",
+    loanAmount: "",
+    interestRate: "",
+    loanDuration: "",
+  });
+  console.log("Home.js: submittedForm: ", submittedForm);
+
+  const [loanValue, setLoanValue] = useState();
+  console.log("Home: loanValue(): ", loanValue);
+  const [monthlyPayment, setMonthlyPayment] = useState();
+  console.log("Home: monthlyPayment: ", monthlyPayment);
+  const [yearsToMonths, setYearsToMonths] = useState();
+  console.log("Home: yearsToMonths: ", yearsToMonths);
+
+  const getValues = (form) => {
+    console.log("The form was submitted! ");
+    console.log(JSON.stringify(form));
+    setSubmittedForm({
+      ...submittedForm,
+      homeValue: form.homeValue,
+      downPayment: form.downPayment,
+      loanAmount: form.loanAmount,
+      interestRate: form.interestRate,
+      loanDuration: form.loanDuration,
+    });
+  };
+
+  const calculateValue = () => {
+    setLoanValue(
+      Number(submittedForm.homeValue) - Number(submittedForm.downPayment)
+    );
+    return loanValue;
+  };
+
+  const calculateMonthlyPayment = () => {
+    // Percentage conversion
+    const percentageToDecimal = (percent) => {
+      return percent / 12 / 100;
+    };
+
+    // years to month conversion
+    const yearsToMonths = () => {
+      setYearsToMonths(Number(submittedForm.loanDuration) * 12);
+      return yearsToMonths;
+    };
+
+    setMonthlyPayment(
+      percentageToDecimal(Number(submittedForm.interestRate)) * loanValue
+    );
+
+    return monthlyPayment;
+  };
+
+  useEffect(() => {
+    calculateValue();
+    calculateMonthlyPayment();
+  }, [submittedForm]);
+
   return (
     <div className="hero min-h-[90vh] bg-base-200 ">
       <div className="hero-content flex-col lg:flex-row ">
@@ -24,7 +85,7 @@ const Home = () => {
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <div className="form-control">
-              <Form />
+              <Form getValues={getValues} />
             </div>
           </div>
           <Results />
