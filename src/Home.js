@@ -7,7 +7,6 @@ const Home = () => {
   const [submittedForm, setSubmittedForm] = useState({
     homeValue: "",
     downPayment: "",
-    loanAmount: "",
     interestRate: "",
     loanDuration: "",
   });
@@ -22,7 +21,6 @@ const Home = () => {
       ...submittedForm,
       homeValue: form.homeValue,
       downPayment: form.downPayment,
-      loanAmount: form.loanAmount,
       interestRate: conversion,
       loanDuration: form.loanDuration,
     });
