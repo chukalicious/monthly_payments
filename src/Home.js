@@ -1,8 +1,65 @@
+import { useState, useEffect } from "react";
 import { FcMoneyTransfer } from "react-icons/fc";
 import Form from "./Form";
 import Results from "./Results";
 
 const Home = () => {
+  const [submittedForm, setSubmittedForm] = useState({
+    homeValue: "",
+    downPayment: "",
+    loanAmount: "",
+    interestRate: "",
+    loanDuration: "",
+  });
+
+  const [newLoanAmount, setNewLoanAmount] = useState();
+
+  const [months, setMonths] = useState();
+
+  const getValues = (form) => {
+    const conversion = Number(form.interestRate / 100);
+    setSubmittedForm({
+      ...submittedForm,
+      homeValue: form.homeValue,
+      downPayment: form.downPayment,
+      loanAmount: form.loanAmount,
+      interestRate: conversion,
+      loanDuration: form.loanDuration,
+    });
+  };
+
+  const calculateValue = () => {
+    setNewLoanAmount(
+      Number(submittedForm.homeValue) -
+        parseFloat(Number(submittedForm.downPayment))
+    );
+    return newLoanAmount;
+  };
+
+  const calculateMonths = () => {
+    setMonths(Number(submittedForm.loanDuration) * 12);
+    return months;
+  };
+
+  const amountPlusInterest = () => {
+    return submittedForm.interestRate * newLoanAmount + newLoanAmount;
+  };
+
+  const monthlyPrincipal = () => {
+    return Number(parseFloat(amountPlusInterest()) / months);
+  };
+
+  const monthlyPayment = () => {
+    return monthlyPrincipal().toFixed(2);
+  };
+
+  useEffect(() => {
+    calculateValue();
+    calculateMonths();
+    monthlyPrincipal();
+    monthlyPayment();
+  }, [submittedForm]);
+
   return (
     <div className="hero min-h-[90vh] bg-base-200 ">
       <div className="hero-content flex-col lg:flex-row ">
@@ -24,10 +81,10 @@ const Home = () => {
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <div className="form-control">
-              <Form />
+              <Form getValues={getValues} />
             </div>
           </div>
-          <Results />
+          <Results monthlyPayment={monthlyPayment} />
         </div>
       </div>
     </div>
