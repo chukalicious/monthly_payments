@@ -1,5 +1,5 @@
 const Results = (props) => {
-  const amount = Number(props.monthlyPayment);
+  const amount = Number(props.monthlyPayment());
   return (
     <div className="stats shadow bg-primary text-neutral-content mx-auto my-6 p-3 w-[85%]">
       <div className="stat justify-items-center">
@@ -8,9 +8,8 @@ const Results = (props) => {
         </div>
         <div className="stat-value font-roboto">
           {" "}
-          ${amount.toLocaleString()}
+          ${amount.toFixed(2).toLocaleString()}
         </div>
-        {/* <div className="stat-desc">21% more than last month</div> */}
       </div>
     </div>
   );
