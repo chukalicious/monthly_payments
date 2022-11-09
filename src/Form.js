@@ -4,7 +4,6 @@ const Form = (props) => {
   const [formValues, setFormValues] = useState({
     homeValue: "",
     downPayment: "",
-    loanAmount: "",
     interestRate: "",
     loanDuration: "",
   });
@@ -23,7 +22,6 @@ const Form = (props) => {
     setFormValues({
       homeValue: "",
       downPayment: "",
-      loanAmount: "",
       interestRate: "",
       loanDuration: "",
     });
@@ -35,7 +33,7 @@ const Form = (props) => {
           <span className="w-[35%]">Home Value</span>
           <input
             type="text"
-            placeholder="Example: $10,000.00"
+            placeholder=""
             className="input input-bordered w-[65%] focus:border-primary focus:border-4"
             name="homeValue"
             value={formValues.homeValue}
@@ -48,7 +46,7 @@ const Form = (props) => {
           <span className="w-[35%]">Down Payment</span>
           <input
             type="text"
-            placeholder="Example: $10,000.00"
+            placeholder=""
             className="input input-bordered w-[65%] focus:border-primary focus:border-4"
             name="downPayment"
             value={formValues.downPayment}
@@ -58,23 +56,10 @@ const Form = (props) => {
       </div>
       <div className="form-control mt-[1.25rem]">
         <label className="input-group">
-          <span className="w-[35%]">Loan Amount</span>
-          <input
-            type="text"
-            placeholder="Example: $10,000.00"
-            className="input input-bordered w-[65%] focus:border-primary focus:border-4"
-            name="loanAmount"
-            value={formValues.loanAmount}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div className="form-control mt-[1.25rem]">
-        <label className="input-group">
           <span className="w[35%]">Interest Rate</span>
           <input
             type="text"
-            placeholder="Example: $10,000.00"
+            placeholder=""
             className="input input-bordered w-[65%] focus:border-primary focus:border-4"
             name="interestRate"
             value={formValues.interestRate}
