@@ -1,5 +1,5 @@
-const Results = () => {
-  const amount = Number(89400);
+const Results = (props) => {
+  const amount = Number(props.monthlyPayment);
   return (
     <div className="stats shadow bg-primary text-neutral-content mx-auto my-6 p-3 w-[85%]">
       <div className="stat justify-items-center">
