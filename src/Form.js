@@ -18,6 +18,17 @@ const Form = (props) => {
     e.preventDefault();
     props.getValues(formValues);
   };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setFormValues({
+      homeValue: "",
+      downPayment: "",
+      loanAmount: "",
+      interestRate: "",
+      loanDuration: "",
+    });
+  };
   return (
     <form className="flex flex-col text-roboto" onSubmit={handleSubmit}>
       <div className="form-control text-roboto mt-[1.25rem] ">
@@ -87,6 +98,11 @@ const Form = (props) => {
       </div>
       <div className="form-control mt-6">
         <button className="btn btn-primary">Calculate</button>
+      </div>
+      <div className="form-control mt-6">
+        <button onClick={handleReset} className="btn btn-primary">
+          Reset Form
+        </button>
       </div>
     </form>
   );
