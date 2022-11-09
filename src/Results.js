@@ -6,10 +6,16 @@ const Results = (props) => {
         <div className="stat-title text-3xl font-extralight font-roboto">
           Monthly Payment:{" "}
         </div>
-        <div className="stat-value font-roboto">
-          {" "}
-          ${amount.toFixed(2).toLocaleString()}
-        </div>
+        {isNaN(amount) ? (
+          <div className="stat-value font-roboto"> $0.00</div>
+        ) : (
+          <p>
+            <div className="stat-value font-roboto">
+              {" "}
+              ${amount.toFixed(2).toLocaleString()}
+            </div>
+          </p>
+        )}
       </div>
     </div>
   );
