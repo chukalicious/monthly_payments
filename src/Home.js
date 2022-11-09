@@ -11,57 +11,53 @@ const Home = () => {
     interestRate: "",
     loanDuration: "",
   });
-  console.log("Home.js: submittedForm: ", submittedForm);
 
-  const [loanValue, setLoanValue] = useState();
-  console.log("Home: loanValue(): ", loanValue);
-  const [monthlyPayment, setMonthlyPayment] = useState();
-  console.log("Home: monthlyPayment: ", monthlyPayment);
-  const [yearsToMonths, setYearsToMonths] = useState();
-  console.log("Home: yearsToMonths: ", yearsToMonths);
+  const [newLoanAmount, setNewLoanAmount] = useState();
+
+  const [months, setMonths] = useState();
 
   const getValues = (form) => {
-    console.log("The form was submitted! ");
-    console.log(JSON.stringify(form));
+    const conversion = Number(form.interestRate / 100);
     setSubmittedForm({
       ...submittedForm,
       homeValue: form.homeValue,
       downPayment: form.downPayment,
       loanAmount: form.loanAmount,
-      interestRate: form.interestRate,
+      interestRate: conversion,
       loanDuration: form.loanDuration,
     });
   };
 
   const calculateValue = () => {
-    setLoanValue(
-      Number(submittedForm.homeValue) - Number(submittedForm.downPayment)
+    setNewLoanAmount(
+      Number(submittedForm.homeValue) -
+        parseFloat(Number(submittedForm.downPayment))
     );
-    return loanValue;
+    return newLoanAmount;
   };
 
-  const calculateMonthlyPayment = () => {
-    // Percentage conversion
-    const percentageToDecimal = (percent) => {
-      return percent / 12 / 100;
-    };
+  const calculateMonths = () => {
+    setMonths(Number(submittedForm.loanDuration) * 12);
+    return months;
+  };
 
-    // years to month conversion
-    const yearsToMonths = () => {
-      setYearsToMonths(Number(submittedForm.loanDuration) * 12);
-      return yearsToMonths;
-    };
+  const amountPlusInterest = () => {
+    return submittedForm.interestRate * newLoanAmount + newLoanAmount;
+  };
 
-    setMonthlyPayment(
-      percentageToDecimal(Number(submittedForm.interestRate)) * loanValue
-    );
+  const monthlyPrincipal = () => {
+    return Number(parseFloat(amountPlusInterest()) / months);
+  };
 
-    return monthlyPayment;
+  const monthlyPayment = () => {
+    return monthlyPrincipal().toFixed(2);
   };
 
   useEffect(() => {
     calculateValue();
-    calculateMonthlyPayment();
+    calculateMonths();
+    monthlyPrincipal();
+    monthlyPayment();
   }, [submittedForm]);
 
   return (
@@ -88,7 +84,7 @@ const Home = () => {
               <Form getValues={getValues} />
             </div>
           </div>
-          <Results />
+          <Results monthlyPayment={monthlyPayment} />
         </div>
       </div>
     </div>
