@@ -26,6 +26,15 @@ const Home = () => {
     });
   };
 
+  const clearForm = () => {
+    setSubmittedForm({
+      homeValue: "",
+      downPayment: "",
+      interestRate: "",
+      loanDuration: "",
+    });
+  };
+
   const calculateValue = () => {
     setNewLoanAmount(
       Number(submittedForm.homeValue) -
@@ -79,7 +88,7 @@ const Home = () => {
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <div className="form-control">
-              <Form getValues={getValues} />
+              <Form getValues={getValues} clearForm={clearForm} />
             </div>
           </div>
           <Results monthlyPayment={monthlyPayment} />

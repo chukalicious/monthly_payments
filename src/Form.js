@@ -25,6 +25,7 @@ const Form = (props) => {
       interestRate: "",
       loanDuration: "",
     });
+    props.clearForm();
   };
   return (
     <form className="flex flex-col text-roboto" onSubmit={handleSubmit}>
