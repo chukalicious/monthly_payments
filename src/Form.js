@@ -8,7 +8,6 @@ const Form = (props) => {
     interestRate: "",
     loanDuration: "",
   });
-  console.log("formValues: ", formValues);
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -100,8 +99,8 @@ const Form = (props) => {
         <button className="btn btn-primary">Calculate</button>
       </div>
       <div className="form-control mt-6">
-        <button onClick={handleReset} className="btn btn-primary">
-          Reset Form
+        <button onClick={handleReset} className="btn btn-error">
+          Clear Form
         </button>
       </div>
     </form>
