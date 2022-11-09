@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const Form = (props) => {
-  console.log("Form: props: ", props);
   const [formValues, setFormValues] = useState({
     homeValue: "",
     downPayment: "",
@@ -17,7 +16,6 @@ const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("event: ", e);
     props.getValues(formValues);
   };
   return (
