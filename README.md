@@ -11,3 +11,8 @@ La verdad es que me tomó mucho tiempo tratar de hacer el API call, no se que le
 Si hay alguna pregunta por favor mandame un correo a katiuskaalicea@gmail.com
 
 Espero el feedback y muchas gracias!
+
+https://github.com/chukalicious/monthly_payments
+
+https://github.com/chukalicious/server1
+https://github.com/chukalicious/abortion-app
