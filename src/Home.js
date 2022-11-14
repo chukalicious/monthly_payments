@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FcMoneyTransfer } from "react-icons/fc";
+import axios from "axios";
 import Form from "./Form";
 import Results from "./Results";
 
@@ -66,6 +67,12 @@ const Home = () => {
     monthlyPrincipal();
     monthlyPayment();
   }, [submittedForm]);
+
+  // build axios call to post to the server
+
+  const postingData = () => {
+    axios.post("http://localhost:4000/api/adopters/all", {}).then().catch();
+  };
 
   return (
     <div className="hero min-h-[90vh] bg-base-200 ">
